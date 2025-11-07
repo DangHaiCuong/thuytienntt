@@ -72,19 +72,7 @@
     </div>
 
     <!-- Hidden audio element -->
-    <audio id="audioPlayer" preload="auto" autoplay muted loop></audio>
-
-    <!-- Autoplay Prompt Overlay (shown if autoplay is blocked) -->
-    <div id="autoplayPrompt" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
-        <div style="text-align: center; color: white; padding: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); max-width: 400px;">
-            <div style="font-size: 80px; margin-bottom: 20px;">🎵</div>
-            <h2 style="margin: 0 0 15px 0; font-size: 28px;">Nhấn để phát nhạc</h2>
-            <p style="margin: 0 0 25px 0; opacity: 0.9; font-size: 16px;">Trình duyệt yêu cầu bạn nhấn để bắt đầu phát nhạc tự động</p>
-            <button id="startMusicBtn" style="background: white; color: #667eea; border: none; padding: 15px 40px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
-                🎧 Bắt đầu
-            </button>
-        </div>
-    </div>
+    <audio id="audioPlayer" preload="auto" autoplay loop></audio>
 
     <!-- Main container -->
     <div class="container">

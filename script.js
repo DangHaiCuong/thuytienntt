@@ -1032,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const rainbowColors = ['#FF1B6B', '#FF6B9D', '#FFC2D1', '#45cafc', '#7DFFEA', '#A78BFA', '#FDA4AF'];
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
-                    const sparkle = document.createElement('div');
+    const sparkle = document.createElement('div');
                     sparkle.style.cssText = `
                         position: fixed;
                         left: ${e.clientX}px;
@@ -1046,8 +1046,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         box-shadow: 0 0 20px currentColor;
                     `;
                     
-                    document.body.appendChild(sparkle);
-                    
+    document.body.appendChild(sparkle);
+
                     const angle = (Math.PI * 2 * i) / 30;
                     const distance = 50 + Math.random() * 100;
                     const tx = Math.cos(angle) * distance;
@@ -1081,7 +1081,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createHeartsRain(x, y) {
         const hearts = ['💖', '💕', '💗', '💓', '💝'];
         for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
+    setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.cssText = `
@@ -1181,12 +1181,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Enable loop
         audioPlayer.loop = true;
         
-        // Unmute and set volume for autoplay
-        audioPlayer.muted = false;
-        const targetVolume = 0.7;
-        audioPlayer.volume = 0.1;
+        // Set volume directly
+        audioPlayer.volume = 0.5;
         
-        // Auto-play with user interaction workaround
+        // Auto-play immediately
         const playPromise = audioPlayer.play();
         
         if (playPromise !== undefined) {
@@ -1197,6 +1195,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Fade in volume smoothly
                 let currentVol = 0.1;
+                const targetVolume = 0.7;
                 const fadeInterval = setInterval(() => {
                     if (currentVol < targetVolume) {
                         currentVol += 0.05;
@@ -1205,37 +1204,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         clearInterval(fadeInterval);
                     }
                 }, 100);
-                
-                showToast('🎵 Đang phát: ' + name + ' (lặp lại)');
             }).catch(error => {
-                // Auto-play was prevented, show prompt overlay
-                audioPlayer.volume = targetVolume;
-                console.log('Auto-play prevented:', error);
-                showAutoplayPrompt(path, name, lyrics);
-            });
-        }
-    }
-    
-    // Show autoplay prompt overlay when autoplay is blocked
-    function showAutoplayPrompt(path, name, lyrics) {
-        const promptOverlay = document.getElementById('autoplayPrompt');
-        const startBtn = document.getElementById('startMusicBtn');
-        
-        if (promptOverlay) {
-            promptOverlay.style.display = 'flex';
-            
-            startBtn.onclick = function() {
-                // Hide overlay
-                promptOverlay.style.display = 'none';
+                // Auto-play was prevented by browser, try on first click
+                console.log('Auto-play prevented, will start on first interaction:', error);
                 
-                // Start playing music
-                audioPlayer.play().then(() => {
-                    isPlaying = true;
-                    playBtnMini.textContent = '⏸️';
-                    vinylDisc.style.animationPlayState = 'running';
-                    showToast('🎵 Đang phát: ' + name + ' (lặp lại)');
-                });
-            };
+                const startOnClick = () => {
+                    audioPlayer.play().then(() => {
+                        isPlaying = true;
+                        playBtnMini.textContent = '⏸️';
+                        vinylDisc.style.animationPlayState = 'running';
+                    });
+                    document.removeEventListener('click', startOnClick);
+                };
+                
+                document.addEventListener('click', startOnClick, { once: true });
+            });
         }
     }
     

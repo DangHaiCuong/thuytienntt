@@ -254,8 +254,8 @@ body {
     }
 }
 
-/* Floating bears around the page - hidden to show 3D bears */
-.floating-bears {
+/* Cute illustrated bears */
+.illustrated-bears {
     position: fixed;
     top: 0;
     left: 0;
@@ -263,7 +263,21 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 3;
-    display: none;
+}
+
+.cute-bear {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    filter: drop-shadow(0 8px 20px rgba(255, 105, 180, 0.4));
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    transition: transform 0.3s ease;
+}
+
+.cute-bear:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 12px 30px rgba(255, 105, 180, 0.6));
 }
 
 .bear {
@@ -273,6 +287,55 @@ body {
     animation-iteration-count: infinite;
     filter: drop-shadow(0 5px 15px rgba(255, 105, 180, 0.5));
     opacity: 0.7;
+}
+
+.cute-bear.bear-1 {
+    top: 8%;
+    left: 8%;
+    animation: floatCuteBear1 5s infinite, wiggle 3s infinite;
+}
+
+.cute-bear.bear-2 {
+    top: 12%;
+    right: 10%;
+    animation: floatCuteBear2 6s infinite, wiggle 4s infinite;
+}
+
+.cute-bear.bear-3 {
+    bottom: 12%;
+    left: 12%;
+    animation: floatCuteBear3 5.5s infinite, wiggle 3.5s infinite;
+}
+
+.cute-bear.bear-4 {
+    bottom: 15%;
+    right: 8%;
+    animation: floatCuteBear4 6.5s infinite, wiggle 4.5s infinite;
+}
+
+@keyframes floatCuteBear1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15px, -20px) rotate(8deg); }
+    50% { transform: translate(0, -35px) rotate(0deg); }
+    75% { transform: translate(-15px, -20px) rotate(-8deg); }
+}
+
+@keyframes floatCuteBear2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-25px, 25px) rotate(-10deg); }
+    66% { transform: translate(10px, -15px) rotate(10deg); }
+}
+
+@keyframes floatCuteBear3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(30px, 30px) rotate(15deg); }
+}
+
+@keyframes floatCuteBear4 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-20px, 20px) rotate(-8deg); }
+    50% { transform: translate(-35px, 0) rotate(-15deg); }
+    75% { transform: translate(-20px, -20px) rotate(-8deg); }
 }
 
 .bear-1 {

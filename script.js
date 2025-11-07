@@ -212,7 +212,7 @@ function createCuteBearModel() {
     leftPaw.position.set(-2.7, -0.8, 0.7);
     bearGroup.add(leftPaw);
 
-    const rightPaw = new THREE.Mesh(rightPaw, bearMaterial);
+    const rightPaw = new THREE.Mesh(pawGeometry, bearMaterial);
     rightPaw.position.set(2.7, -0.8, 0.7);
     bearGroup.add(rightPaw);
 

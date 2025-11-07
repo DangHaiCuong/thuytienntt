@@ -33,7 +33,7 @@ particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 // Particle material with gradient
 const particleMaterial = new THREE.PointsMaterial({
     size: 0.3,
-    color: 0x667eea,
+    color: 0xff69b4,
     transparent: true,
     opacity: 0.8,
     blending: THREE.AdditiveBlending
@@ -145,9 +145,9 @@ function animate() {
     // Slow rotation of the entire system
     particleSystem.rotation.y += 0.001;
 
-    // Color shift over time
+    // Color shift over time (pink tones)
     const time = Date.now() * 0.0001;
-    particleMaterial.color.setHSL((Math.sin(time) + 1) / 2 * 0.2 + 0.6, 0.7, 0.6);
+    particleMaterial.color.setHSL((Math.sin(time) + 1) / 2 * 0.1 + 0.9, 0.8, 0.7);
 
     renderer.render(scene, camera);
 }

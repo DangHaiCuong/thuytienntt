@@ -416,7 +416,7 @@ body {
     75% { transform: rotate(-5deg); }
 }
 
-/* Heart decorations - reduced opacity to not distract from 3D bears */
+/* Heart decorations - hidden for cleaner look */
 .hearts {
     position: fixed;
     top: 0;
@@ -425,7 +425,7 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 2;
-    opacity: 0.4;
+    display: none;
 }
 
 .heart {

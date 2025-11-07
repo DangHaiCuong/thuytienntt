@@ -15,8 +15,8 @@ document.getElementById('canvas-container').appendChild(renderer.domElement);
 
 camera.position.set(0, 0, 60);
 
-// Particle system
-const particleCount = 1500;
+// Particle system - increased for more visual impact
+const particleCount = 2500;
 const particles = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
 const velocities = [];
@@ -36,12 +36,12 @@ for (let i = 0; i < particleCount * 3; i += 3) {
 
 particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-// Particle material with gradient
+// Particle material with gradient - more visible
 const particleMaterial = new THREE.PointsMaterial({
-    size: 0.3,
+    size: 0.5,
     color: 0xff69b4,
     transparent: true,
-    opacity: 0.8,
+    opacity: 0.9,
     blending: THREE.AdditiveBlending
 });
 

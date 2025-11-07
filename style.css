@@ -94,24 +94,24 @@ body {
     pointer-events: none;
 }
 
-/* 3D Glassmorphism Credit Card */
+/* Discord-style Profile Card */
 .bio-card-3d {
-    width: 450px;
-    height: 280px;
+    width: 550px;
+    min-height: 450px;
     background: linear-gradient(135deg,
-        rgba(255, 105, 180, 0.4) 0%,
-        rgba(255, 20, 147, 0.3) 50%,
-        rgba(147, 51, 234, 0.4) 100%);
-    backdrop-filter: blur(30px) saturate(180%);
-    border-radius: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+        rgba(255, 105, 180, 0.35) 0%,
+        rgba(255, 20, 147, 0.25) 50%,
+        rgba(147, 51, 234, 0.35) 100%);
+    backdrop-filter: blur(40px) saturate(200%);
+    border-radius: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
     box-shadow:
-        0 8px 32px rgba(255, 105, 180, 0.3),
-        0 0 60px rgba(255, 20, 147, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        0 15px 60px rgba(255, 105, 180, 0.4),
+        0 0 80px rgba(255, 20, 147, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.15);
     position: relative;
-    padding: 30px;
+    padding: 0;
     pointer-events: auto;
     transform-style: preserve-3d;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
@@ -120,10 +120,10 @@ body {
 }
 
 .bio-card-3d:hover {
-    transform: translateY(-10px) rotateX(5deg);
+    transform: translateY(-12px) scale(1.02);
     box-shadow:
-        0 20px 60px rgba(255, 105, 180, 0.5),
-        0 0 100px rgba(255, 20, 147, 0.4);
+        0 25px 80px rgba(255, 105, 180, 0.6),
+        0 0 120px rgba(255, 20, 147, 0.5);
 }
 
 @keyframes cardLevitate {
@@ -153,11 +153,218 @@ body {
     100% { transform: translateX(100%) rotate(45deg); }
 }
 
+/* Profile Card Components */
+.profile-card {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.profile-picture {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.8);
+    box-shadow:
+        0 0 40px rgba(255, 105, 180, 0.8),
+        0 0 80px rgba(255, 20, 147, 0.5),
+        inset 0 2px 10px rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    animation: profileGlow 3s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes profileGlow {
+    0%, 100% {
+        box-shadow:
+            0 0 40px rgba(255, 105, 180, 0.8),
+            0 0 80px rgba(255, 20, 147, 0.5),
+            inset 0 2px 10px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 0 60px rgba(255, 105, 180, 1),
+            0 0 100px rgba(255, 20, 147, 0.7),
+            inset 0 2px 15px rgba(255, 255, 255, 0.5);
+    }
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.user-info {
+    text-align: center;
+}
+
+.username {
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    font-weight: 900;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.5);
+}
+
+.user-tag {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 15px 0;
+}
+
+.bio-text {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 400px;
+}
+
+.status-badges {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.status-badge.online {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: rgba(76, 175, 80, 0.5);
+}
+
+.status-badge.coding {
+    background: rgba(33, 150, 243, 0.3);
+    border-color: rgba(33, 150, 243, 0.5);
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-indicator.online {
+    background: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-indicator.coding {
+    background: #2196F3;
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.8);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.2);
+    }
+}
+
+.social-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.social-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+}
+
+.social-button svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.member-since {
+    text-align: center;
+    padding: 20px 40px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 10px;
+}
+
+.member-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.member-date {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 /* Card logo */
 .card-logo {
     position: absolute;
     top: 25px;
     right: 30px;
+    display: none;
 }
 
 .logo-text {
@@ -176,6 +383,7 @@ body {
     top: 70px;
     left: 30px;
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    display: none;
 }
 
 /* Card content */
@@ -183,6 +391,7 @@ body {
     position: relative;
     z-index: 2;
     margin-top: 60px;
+    display: none;
 }
 
 .card-name {
@@ -440,6 +649,127 @@ body {
     }
 }
 
+/* Anime-style floating decorative elements */
+.anime-decorations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+}
+
+.anime-element {
+    position: absolute;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    filter: drop-shadow(0 4px 12px rgba(255, 105, 180, 0.4));
+    font-size: 40px;
+}
+
+.anime-element.star-1 {
+    top: 10%;
+    left: 10%;
+    animation: floatAnime1 8s infinite;
+}
+
+.anime-element.star-2 {
+    top: 15%;
+    right: 8%;
+    animation: floatAnime2 9s infinite;
+}
+
+.anime-element.heart-1 {
+    top: 50%;
+    left: 5%;
+    animation: floatAnime3 7s infinite;
+}
+
+.anime-element.heart-2 {
+    bottom: 25%;
+    right: 5%;
+    animation: floatAnime4 10s infinite;
+}
+
+.anime-element.cloud-1 {
+    top: 35%;
+    left: 8%;
+    animation: floatAnime5 11s infinite;
+}
+
+.anime-element.cloud-2 {
+    bottom: 35%;
+    right: 10%;
+    animation: floatAnime6 9s infinite;
+}
+
+.anime-element.candy-1 {
+    top: 70%;
+    left: 12%;
+    animation: floatAnime7 8s infinite, rotateCandy 6s infinite;
+}
+
+.anime-element.candy-2 {
+    top: 25%;
+    right: 15%;
+    animation: floatAnime8 10s infinite, rotateCandy 7s infinite;
+}
+
+@keyframes floatAnime1 {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    25% { transform: translate(20px, -30px) scale(1.1) rotate(10deg); }
+    50% { transform: translate(0, -50px) scale(1) rotate(0deg); }
+    75% { transform: translate(-20px, -30px) scale(1.1) rotate(-10deg); }
+}
+
+@keyframes floatAnime2 {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { transform: translate(-30px, 40px) scale(1.15) rotate(-15deg); }
+    66% { transform: translate(15px, -25px) scale(0.95) rotate(15deg); }
+}
+
+@keyframes floatAnime3 {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(40px, -60px) scale(1.2) rotate(20deg); }
+}
+
+@keyframes floatAnime4 {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    25% { transform: translate(-35px, 30px) scale(0.9) rotate(-12deg); }
+    50% { transform: translate(-60px, 0) scale(1.1) rotate(-25deg); }
+    75% { transform: translate(-35px, -30px) scale(0.95) rotate(-12deg); }
+}
+
+@keyframes floatAnime5 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(60px, 40px) scale(1.15); }
+}
+
+@keyframes floatAnime6 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(25px, -35px) scale(1.1); }
+    66% { transform: translate(-40px, 20px) scale(0.9); }
+}
+
+@keyframes floatAnime7 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -45px) scale(1.2); }
+}
+
+@keyframes floatAnime8 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-25px, 35px) scale(1.1); }
+    50% { transform: translate(-45px, 10px) scale(0.95); }
+    75% { transform: translate(-25px, -25px) scale(1.05); }
+}
+
+@keyframes rotateCandy {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(360deg); }
+}
+
 /* 2D Illustrated bears with modern effects */
 .bears-container {
     position: fixed;
@@ -449,6 +779,7 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 3;
+    display: none;
 }
 
 .cute-bear {

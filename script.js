@@ -109,4 +109,54 @@ setInterval(() => {
     floatDirection = -floatDirection;
 }, 4000);
 
-console.log('✨ 2D Bio page loaded successfully!');
+// Profile picture upload/change functionality
+const profilePicture = document.querySelector('.profile-picture');
+const profileImg = document.getElementById('profileImg');
+
+if (profilePicture && profileImg) {
+    // Make profile picture clickable
+    profilePicture.style.cursor = 'pointer';
+
+    // Create hidden file input
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+
+    // Click to change picture
+    profilePicture.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Handle file selection
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                profileImg.src = event.target.result;
+                // Save to localStorage
+                localStorage.setItem('profileImage', event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Load saved profile picture on page load
+    const savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+        profileImg.src = savedImage;
+    }
+
+    // Add hover effect to indicate it's clickable
+    profilePicture.addEventListener('mouseenter', () => {
+        profilePicture.style.transform = 'scale(1.05)';
+    });
+
+    profilePicture.addEventListener('mouseleave', () => {
+        profilePicture.style.transform = 'scale(1)';
+    });
+}
+
+console.log('✨ Discord-style bio page loaded successfully!');

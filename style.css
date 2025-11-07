@@ -624,6 +624,11 @@ body {
     flex-shrink: 0;
 }
 
+/* Non-clickable icon (span) */
+span.icon-btn {
+    cursor: default;
+}
+
 .icon-btn::before {
     content: '';
     position: absolute;

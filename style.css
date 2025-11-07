@@ -94,53 +94,183 @@ body {
     pointer-events: none;
 }
 
-.bio-card {
-    text-align: center;
-    padding: 70px 60px;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(25px) saturate(200%);
-    border-radius: 35px;
-    border: 3px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 15px 50px 0 rgba(255, 105, 180, 0.5),
-                0 0 100px rgba(255, 20, 147, 0.4),
-                inset 0 2px 3px rgba(255, 255, 255, 0.6),
-                inset 0 -2px 3px rgba(255, 105, 180, 0.2);
-    max-width: 580px;
-    pointer-events: auto;
-    animation: fadeInUp 1s ease-out, cardFloat 4s ease-in-out infinite;
+/* 3D Glassmorphism Credit Card */
+.bio-card-3d {
+    width: 450px;
+    height: 280px;
+    background: linear-gradient(135deg,
+        rgba(255, 105, 180, 0.4) 0%,
+        rgba(255, 20, 147, 0.3) 50%,
+        rgba(147, 51, 234, 0.4) 100%);
+    backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(255, 105, 180, 0.3),
+        0 0 60px rgba(255, 20, 147, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     position: relative;
+    padding: 30px;
+    pointer-events: auto;
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    animation: fadeInUp 1s ease-out, cardLevitate 6s ease-in-out infinite;
     overflow: hidden;
 }
 
-@keyframes cardFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+.bio-card-3d:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow:
+        0 20px 60px rgba(255, 105, 180, 0.5),
+        0 0 100px rgba(255, 20, 147, 0.4);
 }
 
-.bio-card::before {
-    content: '';
+@keyframes cardLevitate {
+    0%, 100% { transform: translateY(0) rotateX(0deg); }
+    50% { transform: translateY(-15px) rotateX(2deg); }
+}
+
+/* Card shine overlay */
+.card-shine {
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
     background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
+        110deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 60%
     );
-    transform: rotate(45deg);
-    animation: shine 3s infinite;
+    animation: cardShine 8s infinite;
+    pointer-events: none;
 }
 
-@keyframes shine {
-    0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-    }
-    100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-    }
+@keyframes cardShine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Card logo */
+.card-logo {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.6));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(255, 105, 180, 0.5);
+}
+
+/* Card chip */
+.card-chip {
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Card content */
+.card-content {
+    position: relative;
+    z-index: 2;
+    margin-top: 60px;
+}
+
+.card-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.card-number {
+    display: flex;
+    gap: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.card-holder, .card-valid {
+    flex: 1;
+}
+
+.card-footer .label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.card-footer .value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Social icons on card */
+.card-social {
+    position: absolute;
+    bottom: 25px;
+    right: 30px;
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.social-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+
+.social-icon svg {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
 @keyframes fadeInUp {

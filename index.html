@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="canvas-container"></div>
-
-    <!-- Cute illustrated bears - REMOVED for cleaner look -->
-    <div class="illustrated-bears" style="display: none;">
+    <!-- Floating 2D animated bears with effects -->
+    <div class="bears-container">
         <!-- Bear 1: Top left with lollipop -->
         <svg class="cute-bear bear-1" viewBox="0 0 200 200">
             <ellipse cx="100" cy="130" rx="45" ry="50" fill="#ffb3d9"/>
@@ -168,7 +166,30 @@
         </div>
     </div>
 
-    <script src="three.min.js"></script>
+    <!-- Pure CSS particles - no Three.js needed -->
+    <div class="particles">
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

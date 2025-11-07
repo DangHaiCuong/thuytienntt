@@ -42,66 +42,220 @@ const particleMaterial = new THREE.PointsMaterial({
 const particleSystem = new THREE.Points(particles, particleMaterial);
 scene.add(particleSystem);
 
-// Create 3D Bear models using spheres
-function createBearModel() {
+// Create detailed, cute 3D Bear model
+function createCuteBearModel() {
     const bearGroup = new THREE.Group();
 
-    // Bear body (main sphere)
-    const bodyGeometry = new THREE.SphereGeometry(2, 32, 32);
-    const bearMaterial = new THREE.MeshPhongMaterial({
-        color: 0xffc0cb,
-        shininess: 30,
+    // Materials
+    const bearMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffb3d9,
+        roughness: 0.7,
+        metalness: 0.1,
         emissive: 0xff69b4,
-        emissiveIntensity: 0.2
+        emissiveIntensity: 0.15
     });
+
+    const darkPinkMaterial = new THREE.MeshStandardMaterial({
+        color: 0xff69b4,
+        roughness: 0.5,
+        metalness: 0.2
+    });
+
+    const whiteMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        roughness: 0.3,
+        metalness: 0.1
+    });
+
+    const blackMaterial = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        roughness: 0.8
+    });
+
+    // BODY - Main rounded body
+    const bodyGeometry = new THREE.SphereGeometry(2.5, 32, 32);
+    bodyGeometry.scale(1, 1.1, 0.9);
     const body = new THREE.Mesh(bodyGeometry, bearMaterial);
+    body.position.y = 0;
     bearGroup.add(body);
 
-    // Bear head
-    const headGeometry = new THREE.SphereGeometry(1.5, 32, 32);
-    const head = new THREE.Mesh(headGeometry, bearMaterial);
-    head.position.y = 2.5;
-    bearGroup.add(head);
+    // BELLY - Lighter colored belly
+    const bellyGeometry = new THREE.SphereGeometry(1.8, 32, 32);
+    bellyGeometry.scale(0.8, 1, 0.5);
+    const belly = new THREE.Mesh(bellyGeometry, whiteMaterial);
+    belly.position.set(0, 0.2, 1.9);
+    bearGroup.add(belly);
 
-    // Bear ears
-    const earGeometry = new THREE.SphereGeometry(0.6, 32, 32);
+    // HEAD - Large cute head
+    const headGeometry = new THREE.SphereGeometry(2, 32, 32);
+    headGeometry.scale(1, 0.95, 0.95);
+    const head = new THREE.Mesh(headGeometry, bearMaterial);
+    head.position.y = 3.5;
+    bearGroup.add(head);
+    bearGroup.userData.head = head;
+
+    // EARS - Round fluffy ears
+    const earGeometry = new THREE.SphereGeometry(0.8, 32, 32);
+
     const leftEar = new THREE.Mesh(earGeometry, bearMaterial);
-    leftEar.position.set(-1, 3.5, 0.2);
+    leftEar.position.set(-1.4, 4.8, 0);
+    leftEar.scale.set(1, 0.8, 0.8);
     bearGroup.add(leftEar);
+    bearGroup.userData.leftEar = leftEar;
 
     const rightEar = new THREE.Mesh(earGeometry, bearMaterial);
-    rightEar.position.set(1, 3.5, 0.2);
+    rightEar.position.set(1.4, 4.8, 0);
+    rightEar.scale.set(1, 0.8, 0.8);
     bearGroup.add(rightEar);
+    bearGroup.userData.rightEar = rightEar;
 
-    // Bear snout
-    const snoutGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const snoutMaterial = new THREE.MeshPhongMaterial({
-        color: 0xffb6c1,
-        shininess: 20
-    });
-    const snout = new THREE.Mesh(snoutGeometry, snoutMaterial);
-    snout.position.set(0, 2.3, 1.3);
+    // EAR INSIDES - Pink inner ears
+    const innerEarGeometry = new THREE.SphereGeometry(0.4, 32, 32);
+
+    const leftInnerEar = new THREE.Mesh(innerEarGeometry, darkPinkMaterial);
+    leftInnerEar.position.set(-1.4, 4.7, 0.3);
+    leftInnerEar.scale.set(1, 0.7, 0.5);
+    bearGroup.add(leftInnerEar);
+
+    const rightInnerEar = new THREE.Mesh(innerEarGeometry, darkPinkMaterial);
+    rightInnerEar.position.set(1.4, 4.7, 0.3);
+    rightInnerEar.scale.set(1, 0.7, 0.5);
+    bearGroup.add(rightInnerEar);
+
+    // SNOUT - Cute rounded snout
+    const snoutGeometry = new THREE.SphereGeometry(0.9, 32, 32);
+    snoutGeometry.scale(1, 0.7, 0.8);
+    const snout = new THREE.Mesh(snoutGeometry, whiteMaterial);
+    snout.position.set(0, 3.2, 1.6);
     bearGroup.add(snout);
 
-    // Bear arms
-    const armGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+    // NOSE - Shiny black nose
+    const noseGeometry = new THREE.SphereGeometry(0.35, 32, 32);
+    noseGeometry.scale(1, 0.8, 0.7);
+    const nose = new THREE.Mesh(noseGeometry, blackMaterial);
+    nose.position.set(0, 3.7, 2.2);
+    bearGroup.add(nose);
+
+    // EYES - Big sparkly eyes
+    const eyeWhiteGeometry = new THREE.SphereGeometry(0.45, 32, 32);
+
+    const leftEyeWhite = new THREE.Mesh(eyeWhiteGeometry, whiteMaterial);
+    leftEyeWhite.position.set(-0.7, 4, 1.7);
+    bearGroup.add(leftEyeWhite);
+
+    const rightEyeWhite = new THREE.Mesh(eyeWhiteGeometry, whiteMaterial);
+    rightEyeWhite.position.set(0.7, 4, 1.7);
+    bearGroup.add(rightEyeWhite);
+
+    // Eye pupils
+    const pupilGeometry = new THREE.SphereGeometry(0.25, 32, 32);
+
+    const leftPupil = new THREE.Mesh(pupilGeometry, blackMaterial);
+    leftPupil.position.set(-0.7, 4, 2.1);
+    bearGroup.add(leftPupil);
+    bearGroup.userData.leftPupil = leftPupil;
+
+    const rightPupil = new THREE.Mesh(pupilGeometry, blackMaterial);
+    rightPupil.position.set(0.7, 4, 2.1);
+    bearGroup.add(rightPupil);
+    bearGroup.userData.rightPupil = rightPupil;
+
+    // Eye shine/sparkle
+    const shineGeometry = new THREE.SphereGeometry(0.12, 16, 16);
+
+    const leftShine = new THREE.Mesh(shineGeometry, whiteMaterial);
+    leftShine.position.set(-0.6, 4.15, 2.25);
+    bearGroup.add(leftShine);
+
+    const rightShine = new THREE.Mesh(shineGeometry, whiteMaterial);
+    rightShine.position.set(0.8, 4.15, 2.25);
+    bearGroup.add(rightShine);
+
+    // CHEEKS - Rosy cheeks
+    const cheekGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+    cheekGeometry.scale(0.6, 0.5, 0.3);
+
+    const leftCheek = new THREE.Mesh(cheekGeometry, darkPinkMaterial);
+    leftCheek.position.set(-1.3, 3.5, 1.5);
+    bearGroup.add(leftCheek);
+
+    const rightCheek = new THREE.Mesh(cheekGeometry, darkPinkMaterial);
+    rightCheek.position.set(1.3, 3.5, 1.5);
+    bearGroup.add(rightCheek);
+
+    // ARMS - Rounded arms with paws
+    const armGeometry = new THREE.CapsuleGeometry(0.6, 1.8, 16, 32);
+
     const leftArm = new THREE.Mesh(armGeometry, bearMaterial);
-    leftArm.position.set(-2, 0.5, 0.5);
+    leftArm.position.set(-2.3, 0.5, 0.5);
+    leftArm.rotation.z = 0.3;
     bearGroup.add(leftArm);
+    bearGroup.userData.leftArm = leftArm;
 
     const rightArm = new THREE.Mesh(armGeometry, bearMaterial);
-    rightArm.position.set(2, 0.5, 0.5);
+    rightArm.position.set(2.3, 0.5, 0.5);
+    rightArm.rotation.z = -0.3;
     bearGroup.add(rightArm);
+    bearGroup.userData.rightArm = rightArm;
 
-    // Bear legs
-    const legGeometry = new THREE.SphereGeometry(0.8, 32, 32);
+    // PAWS - Rounded paws
+    const pawGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+    pawGeometry.scale(1, 0.7, 1);
+
+    const leftPaw = new THREE.Mesh(pawGeometry, bearMaterial);
+    leftPaw.position.set(-2.7, -0.8, 0.7);
+    bearGroup.add(leftPaw);
+
+    const rightPaw = new THREE.Mesh(rightPaw, bearMaterial);
+    rightPaw.position.set(2.7, -0.8, 0.7);
+    bearGroup.add(rightPaw);
+
+    // PAW PADS
+    const padGeometry = new THREE.SphereGeometry(0.25, 16, 16);
+    padGeometry.scale(1, 0.5, 1);
+
+    const leftPad = new THREE.Mesh(padGeometry, darkPinkMaterial);
+    leftPad.position.set(-2.7, -1, 1.2);
+    bearGroup.add(leftPad);
+
+    const rightPad = new THREE.Mesh(padGeometry, darkPinkMaterial);
+    rightPad.position.set(2.7, -1, 1.2);
+    bearGroup.add(rightPad);
+
+    // LEGS - Short cute legs
+    const legGeometry = new THREE.CapsuleGeometry(0.7, 1.2, 16, 32);
+
     const leftLeg = new THREE.Mesh(legGeometry, bearMaterial);
-    leftLeg.position.set(-1, -2, 0);
+    leftLeg.position.set(-1.2, -2, 0);
     bearGroup.add(leftLeg);
 
     const rightLeg = new THREE.Mesh(legGeometry, bearMaterial);
-    rightLeg.position.set(1, -2, 0);
+    rightLeg.position.set(1.2, -2, 0);
     bearGroup.add(rightLeg);
+
+    // FEET - Big rounded feet
+    const footGeometry = new THREE.SphereGeometry(0.9, 32, 32);
+    footGeometry.scale(0.8, 0.6, 1.2);
+
+    const leftFoot = new THREE.Mesh(footGeometry, bearMaterial);
+    leftFoot.position.set(-1.2, -3, 0.3);
+    bearGroup.add(leftFoot);
+
+    const rightFoot = new THREE.Mesh(footGeometry, bearMaterial);
+    rightFoot.position.set(1.2, -3, 0.3);
+    bearGroup.add(rightFoot);
+
+    // FOOT PADS
+    const footPadGeometry = new THREE.SphereGeometry(0.4, 16, 16);
+    footPadGeometry.scale(0.8, 0.4, 1);
+
+    const leftFootPad = new THREE.Mesh(footPadGeometry, darkPinkMaterial);
+    leftFootPad.position.set(-1.2, -3.3, 0.8);
+    bearGroup.add(leftFootPad);
+
+    const rightFootPad = new THREE.Mesh(footPadGeometry, darkPinkMaterial);
+    rightFootPad.position.set(1.2, -3.3, 0.8);
+    bearGroup.add(rightFootPad);
 
     return bearGroup;
 }
@@ -116,15 +270,20 @@ const bearPositions = [
 ];
 
 bearPositions.forEach((pos, index) => {
-    const bear = createBearModel();
+    const bear = createCuteBearModel();
     bear.position.set(pos.x, pos.y, pos.z);
-    bear.scale.set(0.5, 0.5, 0.5);
+    bear.scale.set(0.8, 0.8, 0.8);
     scene.add(bear);
     bears3D.push({
         mesh: bear,
         baseY: pos.y,
+        baseRotationY: 0,
         speed: 0.5 + Math.random() * 0.5,
-        rotationSpeed: 0.005 + Math.random() * 0.01
+        rotationSpeed: 0.005 + Math.random() * 0.01,
+        wavePhase: Math.random() * Math.PI * 2,
+        bouncePhase: Math.random() * Math.PI * 2,
+        isHovered: false,
+        clickTime: 0
     });
 });
 
@@ -145,6 +304,10 @@ const mouse = new THREE.Vector2();
 const mouseWorld = new THREE.Vector3();
 let mouseAttraction = false;
 
+// Raycaster for bear interaction
+const raycaster = new THREE.Raycaster();
+let hoveredBear = null;
+
 window.addEventListener('mousemove', (event) => {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -154,6 +317,32 @@ window.addEventListener('mousemove', (event) => {
         mouse.y * 50,
         0
     );
+
+    // Check for bear hover
+    raycaster.setFromCamera(mouse, camera);
+    const bearMeshes = bears3D.map(b => b.mesh);
+    const intersects = raycaster.intersectObjects(bearMeshes, true);
+
+    // Reset previous hover
+    if (hoveredBear) {
+        hoveredBear.isHovered = false;
+    }
+
+    if (intersects.length > 0) {
+        // Find which bear was intersected
+        for (let bear of bears3D) {
+            if (intersects[0].object.parent === bear.mesh ||
+                intersects[0].object.parent.parent === bear.mesh) {
+                bear.isHovered = true;
+                hoveredBear = bear;
+                document.body.style.cursor = 'pointer';
+                break;
+            }
+        }
+    } else {
+        hoveredBear = null;
+        document.body.style.cursor = 'default';
+    }
 });
 
 window.addEventListener('mousedown', () => {
@@ -162,6 +351,15 @@ window.addEventListener('mousedown', () => {
 
 window.addEventListener('mouseup', () => {
     mouseAttraction = false;
+});
+
+// Click on bears for reaction
+window.addEventListener('click', () => {
+    if (hoveredBear) {
+        hoveredBear.clickTime = Date.now();
+        // Trigger jump/bounce animation
+        hoveredBear.bouncePhase = 0;
+    }
 });
 
 // Touch support for mobile
@@ -247,20 +445,86 @@ function animate() {
     const time = Date.now() * 0.0001;
     particleMaterial.color.setHSL((Math.sin(time) + 1) / 2 * 0.1 + 0.9, 0.8, 0.7);
 
-    // Animate 3D bears
+    // Animate 3D bears with interactions
     bears3D.forEach((bearObj, index) => {
         const time = Date.now() * 0.001;
+        const timeSinceClick = (Date.now() - bearObj.clickTime) / 1000;
 
         // Float animation
-        bearObj.mesh.position.y = bearObj.baseY + Math.sin(time * bearObj.speed) * 3;
+        let yOffset = Math.sin(time * bearObj.speed + bearObj.bouncePhase) * 3;
 
-        // Rotation animation
-        bearObj.mesh.rotation.y += bearObj.rotationSpeed;
-        bearObj.mesh.rotation.x = Math.sin(time * bearObj.speed * 0.5) * 0.1;
+        // Jump animation when clicked
+        if (timeSinceClick < 0.8) {
+            const jumpProgress = timeSinceClick / 0.8;
+            yOffset += Math.sin(jumpProgress * Math.PI) * 8;
+        }
 
-        // Slight scale pulse
-        const scale = 0.5 + Math.sin(time * bearObj.speed * 2) * 0.05;
-        bearObj.mesh.scale.set(scale, scale, scale);
+        bearObj.mesh.position.y = bearObj.baseY + yOffset;
+
+        // Rotation animation - look at mouse when hovered
+        if (bearObj.isHovered) {
+            const targetRotation = Math.atan2(
+                camera.position.x - bearObj.mesh.position.x,
+                camera.position.z - bearObj.mesh.position.z
+            );
+            bearObj.baseRotationY += (targetRotation - bearObj.baseRotationY) * 0.1;
+            bearObj.mesh.rotation.y = bearObj.baseRotationY;
+
+            // Scale up when hovered
+            const hoverScale = 0.9;
+            bearObj.mesh.scale.set(hoverScale, hoverScale, hoverScale);
+
+            // Wiggle ears
+            if (bearObj.mesh.userData.leftEar) {
+                bearObj.mesh.userData.leftEar.rotation.z = Math.sin(time * 8) * 0.3;
+                bearObj.mesh.userData.rightEar.rotation.z = Math.sin(time * 8 + Math.PI) * 0.3;
+            }
+
+            // Excited arm waving
+            if (bearObj.mesh.userData.leftArm) {
+                bearObj.mesh.userData.leftArm.rotation.z = 0.3 + Math.sin(time * 6) * 0.5;
+                bearObj.mesh.userData.rightArm.rotation.z = -0.3 + Math.sin(time * 6 + Math.PI) * 0.5;
+            }
+        } else {
+            // Normal rotation
+            bearObj.baseRotationY += bearObj.rotationSpeed;
+            bearObj.mesh.rotation.y = bearObj.baseRotationY;
+            bearObj.mesh.rotation.x = Math.sin(time * bearObj.speed * 0.5) * 0.1;
+
+            // Normal scale with pulse
+            const scale = 0.8 + Math.sin(time * bearObj.speed * 2) * 0.05;
+            bearObj.mesh.scale.set(scale, scale, scale);
+
+            // Gentle ear movement
+            if (bearObj.mesh.userData.leftEar) {
+                bearObj.mesh.userData.leftEar.rotation.z = Math.sin(time * 2) * 0.1;
+                bearObj.mesh.userData.rightEar.rotation.z = Math.sin(time * 2 + Math.PI) * 0.1;
+            }
+
+            // Subtle arm movement
+            if (bearObj.mesh.userData.leftArm) {
+                bearObj.mesh.userData.leftArm.rotation.z = 0.3 + Math.sin(time * 1.5) * 0.15;
+                bearObj.mesh.userData.rightArm.rotation.z = -0.3 + Math.sin(time * 1.5 + Math.PI) * 0.15;
+            }
+        }
+
+        // Head tilt
+        if (bearObj.mesh.userData.head) {
+            bearObj.mesh.userData.head.rotation.z = Math.sin(time * 1.2 + index) * 0.1;
+        }
+
+        // Eye tracking - pupils follow mouse
+        if (bearObj.mesh.userData.leftPupil && bearObj.mesh.userData.rightPupil) {
+            // Calculate direction to camera/mouse
+            const lookAtX = (mouse.x - bearObj.mesh.position.x / 50) * 0.15;
+            const lookAtY = (mouse.y - bearObj.mesh.position.y / 50) * 0.15;
+
+            bearObj.mesh.userData.leftPupil.position.z = 2.1 + lookAtX;
+            bearObj.mesh.userData.leftPupil.position.x = -0.7 + lookAtY;
+
+            bearObj.mesh.userData.rightPupil.position.z = 2.1 + lookAtX;
+            bearObj.mesh.userData.rightPupil.position.x = 0.7 + lookAtY;
+        }
     });
 
     // Animate lights
